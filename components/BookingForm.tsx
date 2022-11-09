@@ -6,8 +6,8 @@ import {DateTimePicker} from '@mui/x-date-pickers/DateTimePicker';
 import dayjs, {Dayjs} from 'dayjs';
 import {useRouter} from 'next/router';
 import React from 'react';
-import {BookingInterface, StatusEnum} from '../interface/booking.interface';
-import {DoctorInterface} from '../interface/doctor.interface';
+import {BookingInterface, StatusEnum} from '../interfaces/booking.interface';
+import {DoctorInterface} from '../interfaces/doctor.interface';
 import styles from '../styles/Booking.module.css';
 
 function timeToFloat(time:string) {
@@ -28,7 +28,7 @@ const BookingForm = ({
   start:string 
 end: string}) => {
 
-  const emptyState:BookingInterface ={
+  const defaultState:BookingInterface ={
     name: '',
     start: 0.0,
     doctorId: doctorId,
@@ -38,7 +38,7 @@ end: string}) => {
 
   const router = useRouter();
   const [dateTime, setDateTime] = React.useState<Dayjs | null>(dayjs(null));
-  const [formData, setFormData] = React.useState<BookingInterface>(emptyState);
+  const [formData, setFormData] = React.useState<BookingInterface>(defaultState);
 
   /**
    * formSubmit handle a POST request to API /booking endpoint
@@ -49,7 +49,8 @@ end: string}) => {
     const time = `${dateTime!.$H}:${dateTime!.$m}`;
     const date = `${dateTime!.$y}-${dateTime!.$M+1}-${dateTime!.$D}`;
     const floatTime = timeToFloat(time);
-    if(formData.name.length !== 0 && time && date ){
+    if(formData.name.length === 0 || time === 'NaN' || date === 'NaN') return; 
+    
       const body = {
          ...formData, 
          start: floatTime, 
@@ -66,10 +67,6 @@ end: string}) => {
       catch(e){
         console.error(e);
       }
-      router.back();
-    }
-
-    return;
   }
 
   return (

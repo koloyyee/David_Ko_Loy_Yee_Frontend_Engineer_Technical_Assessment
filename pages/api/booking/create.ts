@@ -1,5 +1,5 @@
 import {NextApiRequest, NextApiResponse} from 'next/types';
-import {BookingInterface} from '../../../interface/booking.interface';
+import {BookingInterface} from '../../../interfaces/booking.interface';
 
 /**
  *

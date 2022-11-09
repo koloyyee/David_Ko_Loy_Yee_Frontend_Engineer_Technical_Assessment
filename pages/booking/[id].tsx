@@ -1,18 +1,19 @@
 import {GetServerSideProps} from 'next';
 import BookingForm from '../../components/BookingForm';
-import {floatToTime} from '../../components/DocListingCard';
-import {DoctorInterface} from '../../interface/doctor.interface';
+import DocListingCard, {floatToTime} from '../../components/DocListingCard';
+import {DoctorInterface} from '../../interfaces/doctor.interface';
 
 
-const DoctorById = ({doc}:{doc: DoctorInterface}) => {
-  const start = floatToTime(Number(doc.opening_hours[0].start));
-  const end = floatToTime(Number(doc.opening_hours[0].end));
+const DoctorById = ({doctor}:{doctor: DoctorInterface}) => {
+  const start = floatToTime(Number(doctor.opening_hours[0].start));
+  const end = floatToTime(Number(doctor.opening_hours[0].end));
   
   return (
     <section >
+      <DocListingCard doctor={doctor} isListing={false} /> 
       <BookingForm 
-      doctorName={doc.name}
-      doctorId={doc.id}
+      doctorName={doctor.name}
+      doctorId={doctor.id}
       start={start!}
       end={end!} />
     </section>
@@ -31,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async({params})=>{
   const result: DoctorInterface= await data.json();
   return {
     props:{
-      doc: result
+      doctor: result
     }
   };
 };

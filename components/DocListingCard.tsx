@@ -4,7 +4,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import {red} from '@mui/material/colors';
-import {DayEnum, DoctorInterface} from '../interface/doctor.interface';
+import {DayEnum, DoctorInterface} from '../interfaces/doctor.interface';
 import styles from '../styles/Card.module.css';
 
 export function floatToTime(number: number){
@@ -37,9 +37,12 @@ function sortWeekdays(openings: DoctorInterface['opening_hours']){
 
 }
 
+interface DoctorListingCardInterface{
+  doctor: DoctorInterface,
+  isListing :boolean
+}
 
-
-function DocListingCard(doc: DoctorInterface, listing :boolean) {
+function DocListingCard( {doctor, isListing}:DoctorListingCardInterface) {
 
   return (
     <Card sx={{ 
@@ -49,25 +52,25 @@ function DocListingCard(doc: DoctorInterface, listing :boolean) {
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[600] }} aria-label="">
-            {doc.name[0]}
+            {doctor.name[0]}
           </Avatar>
         }
-        title={doc.name}
-        subheader={doc.id}
+        title={doctor.name}
+        subheader={doctor.id}
       />
    
       <CardContent>
           <p>
-            <span className={styles.subheading}>District:</span> {doc.address.district}
+            <span className={styles.subheading}>District:</span> {doctor.address.district}
           </p>
           <p>
-            <span className={styles.subheading}>Address:</span> {doc.address.line_1} <br/> {doc.address.line_2}
+            <span className={styles.subheading}>Address:</span> {doctor.address.line_1} <br/> {doctor.address.line_2}
           </p>
           <p>
             <span className={styles.subheading}>Opening Days:</span><br/>{
-              sortWeekdays(doc.opening_hours)}
+              sortWeekdays(doctor.opening_hours)}
           </p>
-          {doc.opening_hours.map((open, idx)=> {
+          {doctor.opening_hours.map((open, idx)=> {
             if (open.isClose){
               return (
 
@@ -83,12 +86,13 @@ function DocListingCard(doc: DoctorInterface, listing :boolean) {
           
           <p>
             <span className={styles.subheading}>Opening Hours:</span> <br/>
-          {`${floatToTime(Number(doc.opening_hours[0].start))} - 
-          ${floatToTime(Number(doc.opening_hours[0].end))}`}
+          {`${floatToTime(Number(doctor.opening_hours[0].start))} - 
+          ${floatToTime(Number(doctor.opening_hours[0].end))}`}
           </p>
-          <Button variant="contained" href={`/booking/${doc.id}`}>
+          {isListing ?? <Button variant="contained" href={`/booking/${doctor.id}`}>
             Find Out More.
-          </Button>
+          </Button>}
+          
       </CardContent>
      
     </Card>

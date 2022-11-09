@@ -2,11 +2,11 @@ import {Grid} from '@mui/material';
 import type {GetStaticProps} from 'next';
 import Head from 'next/head';
 import DocListingCard from '../components/DocListingCard';
-import {DoctorInterface} from '../interface/doctor.interface';
+import {DoctorInterface} from '../interfaces/doctor.interface';
 import styles from '../styles/Home.module.css';
 
 
-const Home= ({results}:{results: DoctorInterface[]}) => {
+const Home= ({doctors}:{doctors: DoctorInterface[]}) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -16,8 +16,8 @@ const Home= ({results}:{results: DoctorInterface[]}) => {
       </Head>
       <main className={styles.main}>
         <Grid container spacing={2}>
-        {results.map( (result, idx)=>(
-            <DocListingCard key={idx} {...result}  />
+        {doctors.map( (doctor, idx)=>(
+            <DocListingCard key={idx} doctor={doctor} isListing={true} />
         ))}
         </Grid>
 
@@ -46,7 +46,7 @@ export const getStaticProps: GetStaticProps = async()=>{
 
   return {
     props:{
-      results: results
+      doctors: results
     }
   };
 };
