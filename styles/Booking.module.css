@@ -1,4 +1,6 @@
 .main{
+    display:flex;
+    flex-direction: column;
     min-height: 100vh;
     padding: 0rem 2em;
 }
@@ -31,4 +33,10 @@
 .label {
     color: rgb(54, 54, 54);
     font-size: 14px;
+}
+
+.backButton {
+    align-self: flex-end;
+    width: 150px;
+    margin-right: 100px;
 }

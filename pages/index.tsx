@@ -8,12 +8,13 @@ import styles from '../styles/Home.module.css';
 
 
 const Home:NextPage<{doctors: DoctorInterface[]}>= ({doctors}:{doctors: DoctorInterface[]}) => {
+
   return (
     <div className={styles.container}>
       <Head>
         <title>NeckTie Doctors Booking</title>
         <meta name="Assessment" content="challenge accepted" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/public/tie.png" />
       </Head>
       <Banner/>
       <main className={styles.main}>

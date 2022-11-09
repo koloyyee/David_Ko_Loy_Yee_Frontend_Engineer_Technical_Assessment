@@ -1,3 +1,5 @@
+import {Button} from '@mui/material';
+
 import {GetServerSideProps} from 'next';
 import {useRouter} from 'next/router';
 import Banner from '../../components/Banner';
@@ -20,6 +22,7 @@ const DoctorById = ({doctor}:{doctor: DoctorInterface}) => {
   return (
     <main className={styles.main}>
       <Banner/>
+      <Button className={styles.backButton} onClick={()=>router.replace('/')}> Back</Button> 
     <section className={styles.section}>
       <DocListingCard doctor={doctor} isListing={false} /> 
       <BookingForm 

@@ -88,9 +88,7 @@ end: string}) => {
         setDialogStatus('error');
       }
       setOpenDialog(true);
-      setTimeout(()=>{
-        router.back();
-      },3000);
+      setTimeout(()=>router.replace('/'),3000);
 
   }
 
@@ -189,6 +187,8 @@ function disablePicker(dateTime: dayjs.Dayjs | null){
         <label htmlFor="time-slot" className={styles.label}>
           Time Slot
           <p>{dateTime?.format('H:mm')} - {`${Number(dateTime?.format('H'))+1}:${dateTime?.format('mm')}`}  </p>
+          Doctor&lsquo;s ID:
+          <p>{doctorId} </p>
         </label>:
         ''
       }
@@ -202,15 +202,15 @@ function disablePicker(dateTime: dayjs.Dayjs | null){
           <AlertTitle>{dialogStatus.toUpperCase()}!</AlertTitle>
           {
             dialogStatus.toString() === 'success'?
-            'We have received your booking, back to home.'
+            'We have received your booking, off we go!.'
             :
             'Booking Failed'
           }
           
         </Alert>
       </Dialog>
-    <Button onClick={()=>router.back()}> Back</Button> 
     </FormControl>
+    
     </Box>
   );
 };

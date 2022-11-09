@@ -102,7 +102,7 @@ function DocListingCard( {doctor, isListing}:DoctorListingCardInterface) {
           {`${floatToTime(Number(doctor.opening_hours[0].start))} - 
           ${floatToTime(Number(doctor.opening_hours[0].end))}`}
           </p>
-          {isListing ? <Button variant="contained" href={`/booking/${doctor.id}`}>
+          {isListing ? <Button variant="contained" href={`/doctor/${doctor.id}`}>
             Find Out More
           </Button> : ''}
           
