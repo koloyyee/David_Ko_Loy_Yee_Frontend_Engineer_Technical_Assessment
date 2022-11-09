@@ -1,5 +1,5 @@
 import {Grid} from '@mui/material';
-import type {GetStaticProps} from 'next';
+import type {GetStaticProps, NextPage} from 'next';
 import Head from 'next/head';
 import Banner from '../components/Banner';
 import DocListingCard from '../components/DocListingCard';
@@ -7,7 +7,8 @@ import {DoctorInterface} from '../interfaces/doctor.interface';
 import styles from '../styles/Home.module.css';
 
 
-const Home= ({doctors}:{doctors: DoctorInterface[]}) => {
+const Home:NextPage= (props) => {
+const doctors: DoctorInterface[] = props.doctors;
   return (
     <div className={styles.container}>
       <Head>
