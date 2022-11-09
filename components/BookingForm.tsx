@@ -37,10 +37,11 @@ end: string}) => {
     status: StatusEnum.cancel
   };
 
-  const router = useRouter();
   const [dateTime, setDateTime] = useState<Dayjs | null>(dayjs(''));
   const [formData, setFormData] = useState<BookingInterface>(defaultState);
   const [error, setError] = useState(true);
+  
+  const router = useRouter();
 
 
   /**
@@ -146,7 +147,7 @@ function inputHandler(e:  React.ChangeEvent<HTMLInputElement | HTMLTextAreaEleme
           Time Slot
           <p>{dateTime?.format('H:mm')} - {`${Number(dateTime?.format('H'))+1}:${dateTime?.format('mm')}`}  </p>
         </label>:
-        <></>
+        ''
       }
         <Button variant="contained" onClick={formSubmit}>Make Your Booking</Button>
     <Button onClick={()=>router.back()}> Back</Button> 

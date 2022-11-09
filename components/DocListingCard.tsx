@@ -93,7 +93,7 @@ function DocListingCard( {doctor, isListing}:DoctorListingCardInterface) {
           </p>
           {isListing ? <Button variant="contained" href={`/booking/${doctor.id}`}>
             Find Out More.
-          </Button> : <></>}
+          </Button> : ''}
           
       </CardContent>
      
