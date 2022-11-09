@@ -11,10 +11,10 @@ import * as React from 'react';
 }: {start:string 
 end: string}
 ) {
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs(null));
-  console.log(value);
- console.log(value!.$d.getDay());
-
+  const [dateTime, setDateTime] = React.useState<Dayjs | null>(dayjs(null));
+  console.log(dateTime!.$H, dateTime!.$m);
+  console.log(dateTime!.$y, dateTime!.$M +1, dateTime!.$D);
+  
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Stack spacing={3}>
@@ -22,9 +22,9 @@ end: string}
           renderInput={(params) => <TextField {...params} />}
           label="Book your time"
           disablePast={true}
-          value={value}
+          value={dateTime}
           onChange={(newValue) => {
-            setValue(newValue);
+            setDateTime(newValue);
           }}
           minDate={dayjs('2022-02-14')}
           minTime={dayjs(`2022-02-14T${start}`)}

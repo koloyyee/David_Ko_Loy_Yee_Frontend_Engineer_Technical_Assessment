@@ -1,0 +1,12 @@
+.picker, .input{
+    margin-block: 5px
+}
+
+.input{
+    display:flex;
+    flex-direction: column;
+}
+.label {
+    color: rgb(54, 54, 54);
+    font-size: 14px;
+}

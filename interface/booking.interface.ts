@@ -1,7 +1,7 @@
 import {DoctorInterface} from './doctor.interface';
 
 export interface BookingInterface {
-    id: string
+    id?: string
     name: string
     start: number
     doctorId: DoctorInterface['id']

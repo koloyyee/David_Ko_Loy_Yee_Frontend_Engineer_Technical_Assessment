@@ -1,3 +1,4 @@
+import {Button} from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -5,7 +6,6 @@ import CardHeader from '@mui/material/CardHeader';
 import {red} from '@mui/material/colors';
 import {DayEnum, DoctorInterface} from '../interface/doctor.interface';
 import styles from '../styles/Card.module.css';
-import ActionLink from './ActionLink';
 
 export function floatToTime(number: number){
   if(number <0) return;
@@ -86,7 +86,9 @@ function DocListingCard(doc: DoctorInterface, listing :boolean) {
           {`${floatToTime(Number(doc.opening_hours[0].start))} - 
           ${floatToTime(Number(doc.opening_hours[0].end))}`}
           </p>
-        <ActionLink callForAction='Find Out More.' href={`/booking/${doc.id}`}/>
+          <Button variant="contained" href={`/booking/${doc.id}`}>
+            Find Out More.
+          </Button>
       </CardContent>
      
     </Card>

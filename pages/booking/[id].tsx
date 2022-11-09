@@ -1,19 +1,20 @@
 import {GetServerSideProps} from 'next';
-import AvailableTimePicker from '../../components/AvailableTimePicker';
 import BookingForm from '../../components/BookingForm';
 import {floatToTime} from '../../components/DocListingCard';
 import {DoctorInterface} from '../../interface/doctor.interface';
 
 
 const DoctorById = ({doc}:{doc: DoctorInterface}) => {
-  console.log(doc);
   const start = floatToTime(Number(doc.opening_hours[0].start));
   const end = floatToTime(Number(doc.opening_hours[0].end));
   
   return (
     <section >
-      <AvailableTimePicker start={start!} end={end!}/>
-      <BookingForm />
+      <BookingForm 
+      doctorName={doc.name}
+      doctorId={doc.id}
+      start={start!}
+      end={end!} />
     </section>
   );
 };
