@@ -17,9 +17,6 @@ export default async function handler(
                 'x-api-key': process.env.API_KEY!
             },
             body: JSON.stringify(body)
-    
         });
-    
-    console.log('success');
     res.json(body);
     }

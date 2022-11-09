@@ -1,4 +1,4 @@
-import {Box, Button, FormControl, Stack, Typography} from '@mui/material';
+import {Alert, AlertColor, AlertTitle, Box, Button, Dialog, FormControl, Stack, Typography} from '@mui/material';
 import TextField from '@mui/material/TextField';
 import {LocalizationProvider} from '@mui/x-date-pickers';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
@@ -7,11 +7,17 @@ import dayjs, {Dayjs} from 'dayjs';
 import {useRouter} from 'next/router';
 import React, {useState} from 'react';
 import {BookingInterface, StatusEnum} from '../interfaces/booking.interface';
-import {DoctorInterface} from '../interfaces/doctor.interface';
+import {OpeningHoursInterface} from '../interfaces/doctor.interface';
 import styles from '../styles/Booking.module.css';
 
 const TODAY = dayjs().format('YYYY-MM-DD');
 
+
+/**
+ * @function timeToFloat - convert time back to float format as endpoint.
+ * @param {string} time - dayjs datetime format
+ * @returns 
+ */
 function timeToFloat(time:string) {
   const arr = time.split(':');
   const minute =String(( Number(arr[1])/6)*10);
@@ -22,9 +28,10 @@ function timeToFloat(time:string) {
 
 const BookingForm = ({
   doctorId,
+  openingHours,
   start, end
 }: {
-  doctorName: DoctorInterface['name']
+  openingHours: OpeningHoursInterface[]
   doctorId:string
   start:string 
 end: string}) => {
@@ -40,6 +47,9 @@ end: string}) => {
   const [dateTime, setDateTime] = useState<Dayjs | null>(dayjs(''));
   const [formData, setFormData] = useState<BookingInterface>(defaultState);
   const [error, setError] = useState(true);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [dialogStatus, setDialogStatus] = useState<AlertColor>('success');
+
   
   const router = useRouter();
 
@@ -63,6 +73,7 @@ end: string}) => {
          start: floatTime, 
          date: date
       };
+
       try {
 
         await fetch('/api/booking/create',{
@@ -70,14 +81,22 @@ end: string}) => {
           headers:{'Content-type':'application/json'},
           body: JSON.stringify(body)
         });
+
       }
       catch(e){
         console.error(e);
+        setDialogStatus('error');
       }
+      setOpenDialog(true);
+      setTimeout(()=>{
+        router.back();
+      },3000);
+
   }
 
   /**
    * inputHandler checks if name input is empty.
+   * if empty the button will be disabled 
    * @param {React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} e- event
    * @returns 
    */
@@ -92,7 +111,30 @@ function inputHandler(e:  React.ChangeEvent<HTMLInputElement | HTMLTextAreaEleme
       [e.target.name]: e.target.value.trim()
     });
   }
+/**
+ * pickerHandler - validate the date time picker is not empty
+ * if empty the button will be disabled 
+ * @param {dayjs.Dayjs | null } newValue - Date time picker value
+ * @returns 
+ */
+function pickerHandler(newValue: dayjs.Dayjs | null){
+    newValue? setDateTime(newValue): setError(true);
+  }
 
+/**
+ * @function disablePicker - return boolean if clinic day is close the same day of the week.
+ * @param {dayjs.Dayjs | null} dateTime - dateTime value from date time picker
+ * @returns {boolean}
+ */
+function disablePicker(dateTime: dayjs.Dayjs | null){
+  const dayOfWeek = dateTime?.format('ddd').toString().toUpperCase();
+    openingHours.map(open =>{
+      if (open.isClose && open.day === dayOfWeek){
+        return true;
+      }
+    } );
+    return false;
+}
 
   return (
     <Box 
@@ -130,9 +172,10 @@ function inputHandler(e:  React.ChangeEvent<HTMLInputElement | HTMLTextAreaEleme
           renderInput={(params) => <TextField {...params} />}
           label="Book your time"
           disablePast={true}
+          shouldDisableDate={disablePicker}
           value={dateTime}
           onChange={(newValue) => {
-            setDateTime(newValue);
+            pickerHandler(newValue);
           }}
           minDate={dayjs(TODAY)}
           minTime={dayjs(`${TODAY}T${start}`)}
@@ -149,7 +192,23 @@ function inputHandler(e:  React.ChangeEvent<HTMLInputElement | HTMLTextAreaEleme
         </label>:
         ''
       }
-        <Button variant="contained" onClick={formSubmit}>Make Your Booking</Button>
+        <Button 
+        variant="contained" 
+        onClick={formSubmit}
+        disabled={error}
+        >Make Your Booking</Button>
+        <Dialog open={openDialog} onClose={()=>{setOpenDialog(false);}}>
+        <Alert severity={dialogStatus}>
+          <AlertTitle>{dialogStatus.toUpperCase()}!</AlertTitle>
+          {
+            dialogStatus.toString() === 'success'?
+            'We have received your booking, back to home.'
+            :
+            'Booking Failed'
+          }
+          
+        </Alert>
+      </Dialog>
     <Button onClick={()=>router.back()}> Back</Button> 
     </FormControl>
     </Box>

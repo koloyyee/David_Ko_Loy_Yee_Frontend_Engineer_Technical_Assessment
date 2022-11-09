@@ -12,14 +12,18 @@ const DoctorById = ({doctor}:{doctor: DoctorInterface}) => {
   
   const router = useRouter();
 
-  
+  const offDays = doctor.opening_hours.filter(open => {
+    if(open.isClose){
+      return open.day;
+    }
+  });
   return (
     <main className={styles.main}>
       <Banner/>
     <section className={styles.section}>
       <DocListingCard doctor={doctor} isListing={false} /> 
       <BookingForm 
-      doctorName={doctor.name}
+      openingHours={doctor.opening_hours}
       doctorId={doctor.id}
       start={start!}
       end={end!} />

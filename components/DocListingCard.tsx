@@ -7,6 +7,11 @@ import {red} from '@mui/material/colors';
 import {DayEnum, DoctorInterface} from '../interfaces/doctor.interface';
 import styles from '../styles/Card.module.css';
 
+/**
+ * @function floatToTime convert float number into hh:mm format.
+ * @param {number} number- the time from api. 15.5 = 3:30
+ * @returns 
+ */
 export function floatToTime(number: number){
   if(number <0) return;
 
@@ -24,6 +29,12 @@ export function floatToTime(number: number){
   return hour + ':' + minute;
 }
 
+
+/**
+ * @function sortWeekdays - is sort the abbreviated day with enum. 
+ * @param {DoctorInterface['opening_hours']} openings - unsorted array of days
+ * @returns {string} - A sorted array of weekdays and joint into a string.
+ */
 function sortWeekdays(openings: DoctorInterface['opening_hours']){
   const weekdayOrder= Object.values(DayEnum);
   let restDay = '';
@@ -92,7 +103,7 @@ function DocListingCard( {doctor, isListing}:DoctorListingCardInterface) {
           ${floatToTime(Number(doctor.opening_hours[0].end))}`}
           </p>
           {isListing ? <Button variant="contained" href={`/booking/${doctor.id}`}>
-            Find Out More.
+            Find Out More
           </Button> : ''}
           
       </CardContent>
