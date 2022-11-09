@@ -45,8 +45,10 @@ interface DoctorListingCardInterface{
 function DocListingCard( {doctor, isListing}:DoctorListingCardInterface) {
 
   return (
-    <Card sx={{ 
-      minWidth: 345,
+    <Card sx={{
+      
+      minHeight: 400,
+      maxHeight: 500,
       margin: 3
       }}>
       <CardHeader
@@ -56,7 +58,7 @@ function DocListingCard( {doctor, isListing}:DoctorListingCardInterface) {
           </Avatar>
         }
         title={doctor.name}
-        subheader={doctor.id}
+        subheader={`id: ${doctor.id}`}
       />
    
       <CardContent>
@@ -89,9 +91,9 @@ function DocListingCard( {doctor, isListing}:DoctorListingCardInterface) {
           {`${floatToTime(Number(doctor.opening_hours[0].start))} - 
           ${floatToTime(Number(doctor.opening_hours[0].end))}`}
           </p>
-          {isListing ?? <Button variant="contained" href={`/booking/${doctor.id}`}>
+          {isListing ? <Button variant="contained" href={`/booking/${doctor.id}`}>
             Find Out More.
-          </Button>}
+          </Button> : <></>}
           
       </CardContent>
      

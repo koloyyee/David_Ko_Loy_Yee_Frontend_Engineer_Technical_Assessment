@@ -1,22 +1,32 @@
 import {GetServerSideProps} from 'next';
+import {useRouter} from 'next/router';
+import Banner from '../../components/Banner';
 import BookingForm from '../../components/BookingForm';
 import DocListingCard, {floatToTime} from '../../components/DocListingCard';
 import {DoctorInterface} from '../../interfaces/doctor.interface';
-
+import styles from '../../styles/Booking.module.css';
 
 const DoctorById = ({doctor}:{doctor: DoctorInterface}) => {
   const start = floatToTime(Number(doctor.opening_hours[0].start));
   const end = floatToTime(Number(doctor.opening_hours[0].end));
   
+  const router = useRouter();
+
+  
   return (
-    <section >
+    <main className={styles.main}>
+      <Banner/>
+    <section className={styles.section}>
       <DocListingCard doctor={doctor} isListing={false} /> 
       <BookingForm 
       doctorName={doctor.name}
       doctorId={doctor.id}
       start={start!}
       end={end!} />
+      
     </section>
+    
+    </main>
   );
 };
 

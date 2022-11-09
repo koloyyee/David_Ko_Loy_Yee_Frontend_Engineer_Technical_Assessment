@@ -1,6 +1,7 @@
 import {Grid} from '@mui/material';
 import type {GetStaticProps} from 'next';
 import Head from 'next/head';
+import Banner from '../components/Banner';
 import DocListingCard from '../components/DocListingCard';
 import {DoctorInterface} from '../interfaces/doctor.interface';
 import styles from '../styles/Home.module.css';
@@ -14,6 +15,7 @@ const Home= ({doctors}:{doctors: DoctorInterface[]}) => {
         <meta name="Assessment" content="challenge accepted" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Banner/>
       <main className={styles.main}>
         <Grid container spacing={2}>
         {doctors.map( (doctor, idx)=>(

@@ -1,0 +1,10 @@
+.header {
+    padding: 2em 1em;
+    border-bottom: 1px solid black;
+    width: 50%;
+}
+.link{
+    text-decoration: none;
+    text-anchor: none;
+    color: inherit;
+}

@@ -1,3 +1,15 @@
+.main{
+    min-height: 100vh;
+    padding: 0rem 2em;
+}
+
+.section{
+    display: grid;
+    justify-content: center;
+    padding-top: 1.5em;
+   grid-template-columns: repeat(auto-fit, minmax(360px, 550px));
+   height:100vh;
+}
 .picker, .input{
     margin-block: 5px
 }
@@ -5,7 +17,17 @@
 .input{
     display:flex;
     flex-direction: column;
+    height: 24px;
+    transition: all 300ms ease-in-out;
 }
+
+.input:focus {
+    height: 30px;
+    width: 250px;
+    font-size: 20px;
+}
+
+
 .label {
     color: rgb(54, 54, 54);
     font-size: 14px;

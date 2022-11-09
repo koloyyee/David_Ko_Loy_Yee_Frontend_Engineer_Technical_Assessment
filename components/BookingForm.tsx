@@ -1,14 +1,16 @@
-import {Box, Button, Stack} from '@mui/material';
+import {Box, Button, FormControl, Stack, Typography} from '@mui/material';
 import TextField from '@mui/material/TextField';
 import {LocalizationProvider} from '@mui/x-date-pickers';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {DateTimePicker} from '@mui/x-date-pickers/DateTimePicker';
 import dayjs, {Dayjs} from 'dayjs';
 import {useRouter} from 'next/router';
-import React from 'react';
+import React, {useState} from 'react';
 import {BookingInterface, StatusEnum} from '../interfaces/booking.interface';
 import {DoctorInterface} from '../interfaces/doctor.interface';
 import styles from '../styles/Booking.module.css';
+
+const TODAY = dayjs().format('YYYY-MM-DD');
 
 function timeToFloat(time:string) {
   const arr = time.split(':');
@@ -19,7 +21,6 @@ function timeToFloat(time:string) {
 }
 
 const BookingForm = ({
-  doctorName,
   doctorId,
   start, end
 }: {
@@ -37,20 +38,25 @@ end: string}) => {
   };
 
   const router = useRouter();
-  const [dateTime, setDateTime] = React.useState<Dayjs | null>(dayjs(null));
-  const [formData, setFormData] = React.useState<BookingInterface>(defaultState);
+  const [dateTime, setDateTime] = useState<Dayjs | null>(dayjs(null));
+  const [formData, setFormData] = useState<BookingInterface>(defaultState);
+  const [error, setError] = useState(true);
+
 
   /**
    * formSubmit handle a POST request to API /booking endpoint
+   * create a booking
+   * assuming id is auto-increment
    * @param {React.FormEvent} e: Form Event
    */
   async function formSubmit(e:React.FormEvent){
     e.preventDefault();
-    const time = `${dateTime!.$H}:${dateTime!.$m}`;
-    const date = `${dateTime!.$y}-${dateTime!.$M+1}-${dateTime!.$D}`;
-    const floatTime = timeToFloat(time);
-    if(formData.name.length === 0 || time === 'NaN' || date === 'NaN') return; 
+    const time = dateTime?.format('H:mm');
+    const date = dateTime?.format('YYYY-MM-DD');
+    const floatTime = timeToFloat(time!);
+    if(formData.name.length === 0 || time === 'NaN' || date === 'NaN') return;
     
+    setError(false); 
       const body = {
          ...formData, 
          start: floatTime, 
@@ -69,38 +75,53 @@ end: string}) => {
       }
   }
 
+  /**
+   * inputHandler checks if name input is empty.
+   * @param {React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} e- event
+   * @returns 
+   */
+function inputHandler(e:  React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
+    if(e.target.value.trim() === ''){
+      setError(true);
+      return;
+    } 
+    setError(false);
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value.trim()
+    });
+  }
+
+
   return (
     <Box 
     component='div'
     sx={{ 
-      maxWidth: 500,
+      minHeight: 400,
+      maxHeight: 500,
       margin: 3,
       padding: 5,
-      boxShadow: '0 0 5px',
-      borderRadius: 3
+      boxShadow: '0 1px 2px',
+      borderRadius: 1.2
       }}>
 
   
-    <form>
-      <label  className={styles.label} htmlFor="doctor-name">
-        Doctor
-        <p>Name: {doctorName}</p>
-        <p>ID: {doctorId}</p>
-      </label>
-       <label htmlFor="name" className={styles.label} >
-           Your Name
-            <input 
-            className={styles.input}
-            type="text"
-            name="name"
-            id="name"
-            onChange={(e)=>setFormData({
-              ...formData,
-              [e.target.name]: e.target.value.trim().toLowerCase()
-            })}
-            required={true}
-            />
-        </label>
+    <FormControl
+    sx={{
+      gap: 2
+    }}>
+      <Typography variant={'h5'}>Found The Right Doctor?</Typography>
+              <TextField
+              // className={styles.input}
+              autoFocus={true}
+              type="text"
+              name="name"
+              id="name"
+              onChange={inputHandler}
+              required={true}
+          label="What's Your Name?"
+          error={error}
+        />
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Stack spacing={3}>
         <DateTimePicker
@@ -112,17 +133,24 @@ end: string}) => {
           onChange={(newValue) => {
             setDateTime(newValue);
           }}
-          minDate={dayjs('2022-02-14')}
-          minTime={dayjs(`2022-02-14T${start}`)}
-          maxTime={dayjs(`2022-02-14T${end}`)}
+          minDate={dayjs(TODAY)}
+          minTime={dayjs(`${TODAY}T${start}`)}
+          maxTime={dayjs(`${TODAY}T${end}`)}
         />
       </Stack>
     </LocalizationProvider>
-   
         
+        {dateTime?.format('DD/MM/YY H:mm') !== 'Invalid Date' ? 
+        
+        <label htmlFor="time-slot" className={styles.label}>
+          Time Slot
+          <p>{dateTime?.format('H:mm')} - {`${Number(dateTime?.format('H'))+1}:${dateTime?.format('mm')}`}  </p>
+        </label>:
+        <></>
+      }
         <Button variant="contained" onClick={formSubmit}>Make Your Booking</Button>
-    </form>
-          <Button onClick={()=>router.back()}> Back</Button>
+    <Button onClick={()=>router.back()}> Back</Button> 
+    </FormControl>
     </Box>
   );
 };
