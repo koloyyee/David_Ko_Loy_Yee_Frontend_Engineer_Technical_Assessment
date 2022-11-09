@@ -4,13 +4,13 @@ import styles from '../styles/Header.module.css';
 
 const Banner = () => {
   return (
-    <Link className={styles.link}href='/'>
-    <header className={styles.header}>
+      <header className={styles.header}>
+        <Link className={styles.link}href='/'>
         <Typography variant='h2'> Welcome to NeckTie Insurance</Typography>
         <Typography variant='body1'> helping you to find the right doctor.</Typography>
+    </Link>
 
     </header>
-    </Link>
   );
 };
 
