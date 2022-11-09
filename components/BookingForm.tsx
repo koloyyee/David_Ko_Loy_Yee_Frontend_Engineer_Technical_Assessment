@@ -38,7 +38,7 @@ end: string}) => {
   };
 
   const router = useRouter();
-  const [dateTime, setDateTime] = useState<Dayjs | null>(dayjs(null));
+  const [dateTime, setDateTime] = useState<Dayjs | null>(dayjs(''));
   const [formData, setFormData] = useState<BookingInterface>(defaultState);
   const [error, setError] = useState(true);
 
