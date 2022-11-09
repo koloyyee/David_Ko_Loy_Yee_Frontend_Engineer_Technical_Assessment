@@ -7,8 +7,7 @@ import {DoctorInterface} from '../interfaces/doctor.interface';
 import styles from '../styles/Home.module.css';
 
 
-const Home:NextPage= (props) => {
-const doctors: DoctorInterface[] = props.doctors;
+const Home:NextPage<DoctorInterface[]>= (doctors) => {
   return (
     <div className={styles.container}>
       <Head>
