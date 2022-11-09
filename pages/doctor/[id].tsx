@@ -9,16 +9,11 @@ import {DoctorInterface} from '../../interfaces/doctor.interface';
 import styles from '../../styles/Booking.module.css';
 
 const DoctorById = ({doctor}:{doctor: DoctorInterface}) => {
+  const router = useRouter();
+  
   const start = floatToTime(Number(doctor.opening_hours[0].start));
   const end = floatToTime(Number(doctor.opening_hours[0].end));
-  
-  const router = useRouter();
 
-  const offDays = doctor.opening_hours.filter(open => {
-    if(open.isClose){
-      return open.day;
-    }
-  });
   return (
     <main className={styles.main}>
       <Banner/>

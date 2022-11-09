@@ -2,7 +2,7 @@ import {NextApiRequest, NextApiResponse} from 'next/types';
 import {BookingInterface} from '../../../interfaces/booking.interface';
 
 /**
- *
+ * @function handler - create a new booking.
  * @param {NextApiRequest} req
  * @param { NextApiResponse<BookingInterface>} res
  */

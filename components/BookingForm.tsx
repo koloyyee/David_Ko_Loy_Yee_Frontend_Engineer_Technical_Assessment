@@ -44,14 +44,14 @@ end: string}) => {
     status: StatusEnum.cancel
   };
 
-  const [dateTime, setDateTime] = useState<Dayjs | null>(dayjs(''));
-  const [formData, setFormData] = useState<BookingInterface>(defaultState);
+  const router = useRouter();
   const [error, setError] = useState(true);
   const [openDialog, setOpenDialog] = useState(false);
+  const [dateTime, setDateTime] = useState<Dayjs | null>(dayjs(''));
   const [dialogStatus, setDialogStatus] = useState<AlertColor>('success');
+  const [formData, setFormData] = useState<BookingInterface>(defaultState);
 
   
-  const router = useRouter();
 
 
   /**
@@ -66,7 +66,6 @@ end: string}) => {
     const date = dateTime?.format('YYYY-MM-DD');
     const floatTime = timeToFloat(time!);
     if(formData.name.length === 0 || time === 'NaN' || date === 'NaN') return;
-    
     setError(false); 
       const body = {
          ...formData, 
@@ -92,12 +91,12 @@ end: string}) => {
 
   }
 
-  /**
-   * inputHandler checks if name input is empty.
-   * if empty the button will be disabled 
-   * @param {React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} e- event
-   * @returns 
-   */
+/**
+ * inputHandler checks if name input is empty.
+ * if empty the button will be disabled 
+ * @param {React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} e- event
+ * @returns 
+ */
 function inputHandler(e:  React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
     if(e.target.value.trim() === ''){
       setError(true);
@@ -109,6 +108,7 @@ function inputHandler(e:  React.ChangeEvent<HTMLInputElement | HTMLTextAreaEleme
       [e.target.name]: e.target.value.trim()
     });
   }
+  
 /**
  * pickerHandler - validate the date time picker is not empty
  * if empty the button will be disabled 

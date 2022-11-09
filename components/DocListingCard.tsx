@@ -71,7 +71,6 @@ function DocListingCard( {doctor, isListing}:DoctorListingCardInterface) {
         title={doctor.name}
         subheader={`id: ${doctor.id}`}
       />
-   
       <CardContent>
           <p>
             <span className={styles.subheading}>District:</span> {doctor.address.district}
@@ -93,10 +92,8 @@ function DocListingCard( {doctor, isListing}:DoctorListingCardInterface) {
                 {open.day}
               </p>
               );
-              
             }
           })}
-          
           <p>
             <span className={styles.subheading}>Opening Hours:</span> <br/>
           {`${floatToTime(Number(doctor.opening_hours[0].start))} - 
