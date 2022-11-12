@@ -9,22 +9,10 @@ import React, {useState} from 'react';
 import {BookingInterface, StatusEnum} from '../interfaces/booking.interface';
 import {OpeningHoursInterface} from '../interfaces/doctor.interface';
 import styles from '../styles/Booking.module.css';
+import {timeToFloat} from '../utils/datetimeConverts';
+import TimeSlot from './TimeSlot';
 
 const TODAY = dayjs().format('YYYY-MM-DD');
-
-
-/**
- * @function timeToFloat - convert time back to float format as endpoint.
- * @param {string} time - dayjs datetime format
- * @returns 
- */
-function timeToFloat(time:string) {
-  const arr = time.split(':');
-  const minute =String(( Number(arr[1])/6)*10);
-  const dec = parseInt(minute, 10);
-
-  return parseFloat(parseInt(arr[0],10) + '.'+ (dec<10? '0':'') + dec);
-}
 
 const BookingForm = ({
   doctorId,
@@ -50,9 +38,6 @@ end: string}) => {
   const [dateTime, setDateTime] = useState<Dayjs | null>(dayjs(''));
   const [dialogStatus, setDialogStatus] = useState<AlertColor>('success');
   const [formData, setFormData] = useState<BookingInterface>(defaultState);
-
-  
-
 
   /**
    * formSubmit handle a POST request to API /booking endpoint
@@ -94,7 +79,7 @@ end: string}) => {
 /**
  * inputHandler checks if name input is empty.
  * if empty the button will be disabled 
- * @param {React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} e- event
+ * @param {React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} e - event
  * @returns 
  */
 function inputHandler(e:  React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
@@ -185,10 +170,13 @@ function disablePicker(dateTime: dayjs.Dayjs | null){
         {dateTime?.format('DD/MM/YY H:mm') !== 'Invalid Date' ? 
         
         <label htmlFor="time-slot" className={styles.label}>
-          Time Slot
-          <p>{dateTime?.format('H:mm')} - {`${Number(dateTime?.format('H'))+1}:${dateTime?.format('mm')}`}  </p>
+
+          <TimeSlot start={timeToFloat(dateTime!.format('H:mm'))}/>
+          <p>
           Doctor&lsquo;s ID:
-          <p>{doctorId} </p>
+          <br/>
+          {doctorId}
+            </p> 
         </label>:
         ''
       }

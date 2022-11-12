@@ -4,9 +4,13 @@ import {GetServerSideProps} from 'next';
 import {useRouter} from 'next/router';
 import Banner from '../../components/Banner';
 import BookingForm from '../../components/BookingForm';
-import DocListingCard, {floatToTime} from '../../components/DocListingCard';
+import DocListingCard from '../../components/DocListingCard';
+import Footer from '../../components/Footer';
+import Nav from '../../components/Nav';
 import {DoctorInterface} from '../../interfaces/doctor.interface';
 import styles from '../../styles/Booking.module.css';
+import homeStyles from '../../styles/Home.module.css';
+import {floatToTime} from '../../utils/datetimeConverts';
 
 const DoctorById = ({doctor}:{doctor: DoctorInterface}) => {
   const router = useRouter();
@@ -15,10 +19,13 @@ const DoctorById = ({doctor}:{doctor: DoctorInterface}) => {
   const end = floatToTime(Number(doctor.opening_hours[0].end));
 
   return (
+    <>
+
     <main className={styles.main}>
       <Banner/>
-      <Button className={styles.backButton} onClick={()=>router.replace('/')}> Back</Button> 
-    <section className={styles.section}>
+      <div className={homeStyles.container}>
+      <Nav />
+    <section className={homeStyles.main}>
       <DocListingCard doctor={doctor} isListing={false} /> 
       <BookingForm 
       openingHours={doctor.opening_hours}
@@ -26,9 +33,13 @@ const DoctorById = ({doctor}:{doctor: DoctorInterface}) => {
       start={start!}
       end={end!} />
       
+    <Button className={styles.backButton} onClick={()=>router.replace('/')}> Back</Button> 
     </section>
-    
+
+    </div>
     </main>
+    <Footer />
+    </>
   );
 };
 

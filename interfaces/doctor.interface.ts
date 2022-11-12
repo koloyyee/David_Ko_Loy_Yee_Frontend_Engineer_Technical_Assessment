@@ -27,3 +27,9 @@ export enum DayEnum {
     SAT = 'SAT', 
     SUN = 'SUN',
 }
+
+export interface DoctorListingCardInterface{
+    doctor: DoctorInterface,
+    isListing :boolean
+  }
+  
