@@ -40,6 +40,7 @@ const Bookings = () => {
     <form className={styles.bookingForm} >
       <label  htmlFor="bookingId">
         Input your booking id:
+      </label>
           <input
           className={styles.input}
           type="text"
@@ -47,7 +48,6 @@ const Bookings = () => {
           id=""
           onChange={(e)=>setQuery(e.target.value.trim())}
           />
-      </label>
       <Button variant='contained' onClick={searchBooking}>Find</Button>
     </form>
     </section>
