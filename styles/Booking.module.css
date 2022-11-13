@@ -7,10 +7,10 @@
 .section{
     display: grid;
     justify-content: center;
-    padding-top: 1.5em;
-    grid-template-columns: repeat(auto-fit, minmax(360px, 550px));
-    height:100vh;
-    margin: 0 auto;
+    grid-template-columns: minmax(150px, 1fr);
+
+    min-height:50vh;
+    margin: 10em auto;
 }
 .picker, .input{
     margin-block: 5px
@@ -54,6 +54,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
     grid-template-rows: repeat(2, auto);
+    margin: 10em auto;
 }
 
 .bookingForm {
@@ -75,6 +76,10 @@
 @media (min-width: 600px) {
     .bookingSection {
         width: 80%;
+    }
+    .section {
+        grid-template-columns: repeat(2, minmax(360px, 550px));
+
     }
     
 }

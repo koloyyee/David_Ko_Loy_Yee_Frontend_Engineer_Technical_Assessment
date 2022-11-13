@@ -11,9 +11,9 @@
 }
 
 .nav a {
-    list-style: none;
+    /* list-style: none; */
     text-decoration:  none;
-    color: inherit;
+    color: black;
 }
 
 .nav a:hover, 

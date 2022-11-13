@@ -2,11 +2,10 @@ import {Button} from '@mui/material';
 
 import {GetServerSideProps} from 'next';
 import {useRouter} from 'next/router';
-import Banner from '../../components/Banner';
 import BookingForm from '../../components/BookingForm';
 import DocListingCard from '../../components/DocListingCard';
 import Footer from '../../components/Footer';
-import Nav from '../../components/Nav';
+import ResponsiveDrawer from '../../components/ResponsiveDrawer';
 import {DoctorInterface} from '../../interfaces/doctor.interface';
 import styles from '../../styles/Booking.module.css';
 import homeStyles from '../../styles/Home.module.css';
@@ -22,10 +21,9 @@ const DoctorById = ({doctor}:{doctor: DoctorInterface}) => {
     <>
 
     <main className={styles.main}>
-      <Banner/>
       <div className={homeStyles.container}>
-      <Nav />
-    <section className={homeStyles.main}>
+    <ResponsiveDrawer />
+    <section className={styles.section}>
       <DocListingCard doctor={doctor} isListing={false} /> 
       <BookingForm 
       openingHours={doctor.opening_hours}

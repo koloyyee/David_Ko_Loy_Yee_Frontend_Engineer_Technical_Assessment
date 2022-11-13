@@ -1,9 +1,8 @@
 import {Button, Card, CardContent, Typography} from '@mui/material';
 import {GetServerSideProps} from 'next';
 import {useRouter} from 'next/router';
-import Banner from '../../components/Banner';
 import Footer from '../../components/Footer';
-import Nav from '../../components/Nav';
+import ResponsiveDrawer from '../../components/ResponsiveDrawer';
 import TimeSlot from '../../components/TimeSlot';
 import {BookingInterface} from '../../interfaces/booking.interface';
 import {DoctorInterface} from '../../interfaces/doctor.interface';
@@ -21,9 +20,8 @@ const BookingByID = ({booking, doctors}:{booking:BookingInterface,
     
   return (
     <>
-        <Banner />
     <div className={homeStyles.container}>
-        <Nav/>
+    <ResponsiveDrawer/>
     <section className={styles.bookingSection}>
     <div 
     className={styles.bookingCard}

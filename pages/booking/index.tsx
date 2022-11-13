@@ -2,9 +2,8 @@ import {Button} from '@mui/material';
 import {useRouter} from 'next/router';
 import {GetStaticProps} from 'next/types';
 import {useState} from 'react';
-import Banner from '../../components/Banner';
 import Footer from '../../components/Footer';
-import Nav from '../../components/Nav';
+import ResponsiveDrawer from '../../components/ResponsiveDrawer';
 import {BookingInterface, StatusEnum} from '../../interfaces/booking.interface';
 import styles from '../../styles/Booking.module.css';
 import homeStyles from '../../styles/Home.module.css';
@@ -34,9 +33,9 @@ const Bookings = () => {
 
   return (
     <>
-    <Banner />
+
     <div className={homeStyles.container}>
-    <Nav/>
+    <ResponsiveDrawer/>
     <section className={styles.section}>
     <form className={styles.bookingForm} >
       <label  htmlFor="bookingId">

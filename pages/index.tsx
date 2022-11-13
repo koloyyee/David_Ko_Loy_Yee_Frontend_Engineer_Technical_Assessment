@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Banner from '../components/Banner';
 import DocListingCard from '../components/DocListingCard';
 import Footer from '../components/Footer';
-import Nav from '../components/Nav';
+import Drawer from '../components/ResponsiveDrawer';
 import {DoctorInterface} from '../interfaces/doctor.interface';
 import styles from '../styles/Home.module.css';
 
@@ -22,7 +22,8 @@ const Home:NextPage<{doctors: DoctorInterface[]}>= ({doctors}:{doctors: DoctorIn
       <Banner/>
       <div className={styles.container}>
 
-      <Nav/>
+      {/* <Nav/> */}
+      <Drawer/>
       <main className={styles.main}>
         <Grid container spacing={2}>
         {doctors.map( (doctor, idx)=>(
