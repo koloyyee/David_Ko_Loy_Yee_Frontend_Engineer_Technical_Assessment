@@ -4,10 +4,10 @@
 
 .main {
   min-height: 100vh;
-  flex: 1;
   display: flex;
   justify-content: center;
-  margin-left: 10em;
+  margin-left: 2em;
+  flex-direction: column;
 }
 
 .footer {
@@ -106,10 +106,14 @@
   margin-left: 0.5rem;
 }
 
-@media (max-width: 600px) {
+@media (min-width: 600px) {
   .grid {
     width: 100%;
     flex-direction: column;
+  }
+  .main{
+  margin-left: 10em;
+  flex-direction: row;
   }
 }
 
@@ -124,4 +128,5 @@
   .logo img {
     filter: invert(1);
   }
+
 }

@@ -38,7 +38,7 @@ const Bookings = () => {
     <div className={homeStyles.container}>
     <Nav/>
     <section className={styles.section}>
-    <form >
+    <form className={styles.bookingForm} >
       <label  htmlFor="bookingId">
         Input your booking id:
           <input

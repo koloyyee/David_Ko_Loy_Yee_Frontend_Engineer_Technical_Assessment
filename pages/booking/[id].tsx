@@ -40,49 +40,48 @@ const BookingByID = ({booking, doctors}:{booking:BookingInterface,
           <p> Thank you for booking with us</p>
           <p> You will find the booking details here.</p>
     </Typography>
-
-    </div>
-    <Card
-    variant='outlined'
-    sx={{
-        maxHeight: 300,
-        marginTop: 5,
-        padding:0, 
-        margin:0,
-    }}
-    >
-        <CardContent >
-    <Typography variant="body1" component="div">
-        Doctor name:
-        <br></br>
-        {doctor.name}
-    </Typography>
-    <Typography variant="body1" component="div">
-        Doctor ID:
-        <br></br>
-        {doctor.id}
-    </Typography>
-    <Typography variant="body2" component="div">
-        District:
-        <br></br>
-        {doctor.address.district}
-    </Typography>
-    <Typography variant="body2" component="div">
-        District:
-        <br></br>
-        {doctor.address.line_1} {doctor.address.line_2} 
-    </Typography>
-
-    <Typography variant="body1">
-          <TimeSlot start={booking.start}/>
-        </Typography>
-        </CardContent>
-    </Card>
-    </section>
     <Button className={styles.backButton} onClick={()=>router.back()}> Back </Button>
 
     </div>
+    <Card
+    className={styles.bookingCard}
+    variant='outlined'
+    sx={{
+        maxHeight: 300,
+        padding: 0,
+        margin:0,
+    }}
+    >
+    <CardContent >
+        <Typography variant="body1" component="div">
+            Doctor name:
+            <br></br>
+            {doctor.name}
+        </Typography>
+        <Typography variant="body1" component="div">
+            Doctor ID:
+            <br></br>
+            {doctor.id}
+        </Typography>
+        <Typography variant="body2" component="div">
+            District:
+            <br></br>
+            {doctor.address.district}
+        </Typography>
+        <Typography variant="body2" component="div">
+            District:
+            <br></br>
+            {doctor.address.line_1} {doctor.address.line_2} 
+        </Typography>
 
+        <Typography variant="body1">
+            <TimeSlot start={booking.start}/>
+            </Typography>
+        </CardContent>
+    </Card>
+    </section>
+
+    </div>
     <Footer />
     </>
   );
