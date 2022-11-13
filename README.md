@@ -47,6 +47,12 @@ I would like to update my package of choice by including some well-known form va
 
 ## Production consideration
 
+### implement the other endpoints
+I understand this assessment's scope is within 8 hours, and I love to implement the rest of the endpoints.
+
+### tests
+I believe we could use Jest to do unit tests for endpoints if as expected, and elements being rendered as expected, however, I am not too quite familiar yet.
+
 ### performance, security and aesthetic
 
 The application should be tested including edge cases and approved by senior engineers and designers for performance, security, and aesthetic concerns before deployment to the production environment might also need to consider enough color contrast or a11y for accessability concerns.
@@ -57,4 +63,4 @@ a: There weren't any assumptions because no design were made, however, I have se
 
 b: I assumed the time would be in timestamp, and for the first time I need to convert between float and time, and no much assumption were made prior to the assessment.
 
-I wasn't expected to handle time with Javascript, and it was good challenge let me learn about handling time.
+Since this assignment is recommended to be finished within 8 hours, I assumed to build the barebone version and get some feedback before implementing other features and touch up on CSS. I also wasn't expected to handle time with Javascript, and it was good challenge let me learn about handling time.
