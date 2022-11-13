@@ -1,6 +1,6 @@
-import MailIcon from '@mui/icons-material/Mail';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import MenuIcon from '@mui/icons-material/Menu';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
+import SearchIcon from '@mui/icons-material/Search';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,6 +16,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Link from 'next/link';
 import * as React from 'react';
 import Banner from './Banner';
+
 
 const drawerWidth = 240;
 
@@ -54,7 +55,7 @@ export default function ResponsiveDrawer(props: Props) {
           <ListItem key={index} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {item.text.includes('Doctor')? <LocalHospitalIcon /> : <SearchIcon />}
               </ListItemIcon>
               <Link style={{textDecoration : 'none', color: 'inherit'}}href={item.link} ><ListItemText primary={item.text} /></Link>
             </ListItemButton>
