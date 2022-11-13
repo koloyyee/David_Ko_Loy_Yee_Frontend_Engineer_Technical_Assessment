@@ -4,20 +4,43 @@ import {useRouter} from 'next/router';
 import Footer from '../../components/Footer';
 import ResponsiveDrawer from '../../components/ResponsiveDrawer';
 import TimeSlot from '../../components/TimeSlot';
-import {BookingInterface} from '../../interfaces/booking.interface';
+import {BookingInterface, StatusEnum} from '../../interfaces/booking.interface';
 import {DoctorInterface} from '../../interfaces/doctor.interface';
 import styles from '../../styles/Booking.module.css';
 import homeStyles from '../../styles/Home.module.css';
 
 const BookingByID = ({booking, doctors}:{booking:BookingInterface,
     doctors: DoctorInterface[]}) => {
-        const router = useRouter();
+
+    const router = useRouter();
 
     const doctor = doctors.filter( doctor=>{
         return doctor.id == booking.doctorId;
         
     })[0];
-    
+  async function cancelBooking(){
+
+    const updateBooking = {
+        ...booking,
+        status: StatusEnum.cancel,
+    };
+    try{
+
+        await fetch('/api/booking/cancel',{
+            method:'POST',
+            headers: {
+                'Content-type':'application/json',
+            },
+            body: JSON.stringify(updateBooking)
+        });
+    } catch(e){
+        console.error(e);
+    }
+    setTimeout(()=>{
+
+        router.replace('/');
+    }, 5000);
+  }
   return (
     <>
     <div className={homeStyles.container}>
@@ -39,6 +62,7 @@ const BookingByID = ({booking, doctors}:{booking:BookingInterface,
           <p> You will find the booking details here.</p>
     </Typography>
     <Button className={styles.backButton} onClick={()=>router.back()}> Back </Button>
+    <Button variant='contained' color='error' className={styles.backButton} onClick={cancelBooking}> CANCEL BOOKING </Button>
 
     </div>
     <Card

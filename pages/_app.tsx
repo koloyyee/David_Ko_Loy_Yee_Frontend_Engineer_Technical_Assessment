@@ -6,6 +6,7 @@ import Head from 'next/head';
 import createEmotionCache from '../src/createEmotionCache';
 import theme from '../src/theme';
 
+
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 

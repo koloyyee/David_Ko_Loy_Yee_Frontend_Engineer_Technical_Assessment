@@ -10,6 +10,9 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<BookingInterface>){
     const body = req.body;
+    if(!body) return;
+    try {
+
         await fetch(`${process.env.URL}/booking`,{
             method:'POST',
             headers:{
@@ -17,6 +20,11 @@ export default async function handler(
                 'x-api-key': process.env.API_KEY!
             },
             body: JSON.stringify(body)
-        });
-    res.json(body);
+            });
+            res.json(body);
+        }catch(e){
+            console.error(e);
+            return;
+        }
+
     }
