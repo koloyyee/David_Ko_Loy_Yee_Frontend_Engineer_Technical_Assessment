@@ -61,8 +61,8 @@ const BookingByID = ({booking, doctors}:{booking:BookingInterface,
           <p> Thank you for booking with us</p>
           <p> You will find the booking details here.</p>
     </Typography>
-    <Button className={styles.backButton} onClick={()=>router.back()}> Back </Button>
-    <Button variant='contained' color='error' className={styles.backButton} onClick={cancelBooking}> CANCEL BOOKING </Button>
+    <Button variant='outlined' className={styles.backButton} onClick={()=>router.back()}> Back </Button>
+    {/* <Button variant='contained' color='error' className={styles.backButton} onClick={cancelBooking}> CANCEL BOOKING </Button> */}
 
     </div>
     <Card

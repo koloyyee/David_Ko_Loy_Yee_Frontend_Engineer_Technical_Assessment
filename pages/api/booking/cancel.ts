@@ -6,7 +6,7 @@ export default async function handler(req: NextApiRequest, res:NextApiResponse<B
     const body = req.body;
     if(!body) return;
     try {
-        await fetch(`${process.env.URL}/booking/${body.id}`,{
+        const data = await fetch(`${process.env.URL}/booking/${body.id}`,{
             method:'PATCH',
             headers:{
                 'Content-type' : 'application/json',
@@ -14,6 +14,7 @@ export default async function handler(req: NextApiRequest, res:NextApiResponse<B
             },
             // body: JSON.stringify(body)
         });
+        console.log(data);
         return res.json(body);
     }catch(e){
         console.error(e);
