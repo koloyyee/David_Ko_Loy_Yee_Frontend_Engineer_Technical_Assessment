@@ -1,9 +1,9 @@
-import {Button, Card, CardContent, Typography} from '@mui/material';
+import {Button, Typography} from '@mui/material';
 import {GetServerSideProps} from 'next';
 import {useRouter} from 'next/router';
+import BookingCard from '../../components/BookingCard';
 import Footer from '../../components/Footer';
 import ResponsiveDrawer from '../../components/ResponsiveDrawer';
-import TimeSlot from '../../components/TimeSlot';
 import {BookingInterface, StatusEnum} from '../../interfaces/booking.interface';
 import {DoctorInterface} from '../../interfaces/doctor.interface';
 import styles from '../../styles/Booking.module.css';
@@ -65,7 +65,7 @@ const BookingByID = ({booking, doctors}:{booking:BookingInterface,
     {/* <Button variant='contained' color='error' className={styles.backButton} onClick={cancelBooking}> CANCEL BOOKING </Button> */}
 
     </div>
-    <Card
+    {/* <Card
     className={styles.bookingCard}
     variant='outlined'
     sx={{
@@ -100,7 +100,8 @@ const BookingByID = ({booking, doctors}:{booking:BookingInterface,
             <TimeSlot start={booking.start}/>
             </Typography>
         </CardContent>
-    </Card>
+    </Card> */}
+    <BookingCard time={booking.start} doctor={doctor} />
     </section>
 
     </div>

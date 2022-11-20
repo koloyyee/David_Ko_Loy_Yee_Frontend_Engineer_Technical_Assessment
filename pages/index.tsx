@@ -1,15 +1,28 @@
 import {Grid} from '@mui/material';
 import type {GetStaticProps, NextPage} from 'next';
 import Head from 'next/head';
+import {useState} from 'react';
 import Banner from '../components/Banner';
 import DocListingCard from '../components/DocListingCard';
+import FilterInput from '../components/FilterInput';
 import Footer from '../components/Footer';
 import Drawer from '../components/ResponsiveDrawer';
 import {DoctorInterface} from '../interfaces/doctor.interface';
 import styles from '../styles/Home.module.css';
 
 const Home:NextPage<{doctors: DoctorInterface[]}>= ({doctors}:{doctors: DoctorInterface[]}) => {
+  const [query, setQuery] = useState('');
+  const [filteredDoctors, setFilteredDoctors] = useState(doctors);
 
+
+  function handleChange(doctors:  DoctorInterface[], query:string) {
+    let filtered = query ===''? doctors : doctors.filter((doctor)=>{
+      return (doctor.address.district.toLowerCase().includes(query.trim().toLowerCase()) ||
+      doctor.name.toLowerCase().includes(query.trim().toLowerCase()) );
+    });
+    setQuery(query);
+    setFilteredDoctors(filtered);
+  }
 
   return (
     <div >
@@ -21,12 +34,12 @@ const Home:NextPage<{doctors: DoctorInterface[]}>= ({doctors}:{doctors: DoctorIn
 
       <Banner/>
       <div className={styles.container}>
-
-      {/* <Nav/> */}
       <Drawer/>
       <main className={styles.main}>
+      <FilterInput label={'Search by Name or District'}list={doctors} query={query} handleChange={handleChange}/>
         <Grid container spacing={2}>
-        {doctors.map( (doctor, idx)=>(
+          
+        {filteredDoctors.map( (doctor, idx)=>(
             <DocListingCard key={idx} doctor={doctor} isListing={true} />
         ))}
         </Grid>
