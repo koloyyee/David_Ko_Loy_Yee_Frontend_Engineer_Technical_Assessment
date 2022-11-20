@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
@@ -29,7 +30,7 @@ interface Props {
 }
 
 export default function ResponsiveDrawer(props: Props) {
-  const { window } = props;
+  const {window} = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -43,8 +44,8 @@ export default function ResponsiveDrawer(props: Props) {
   {
     text: 'Find My Booking',
     link: '/booking',
-  }
-];
+  },
+  ];
 
   const drawer = (
     <div>
@@ -55,9 +56,11 @@ export default function ResponsiveDrawer(props: Props) {
           <ListItem key={index} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {item.text.includes('Doctor')? <LocalHospitalIcon /> : <SearchIcon />}
+                {item.text.includes('Doctor')?
+                <LocalHospitalIcon /> : <SearchIcon />}
               </ListItemIcon>
-              <Link style={{textDecoration : 'none', color: 'inherit'}}href={item.link} ><ListItemText primary={item.text} /></Link>
+              <Link style={{textDecoration: 'none', color: 'inherit'}}
+                href={item.link} ><ListItemText primary={item.text} /></Link>
             </ListItemButton>
           </ListItem>
         ))}
@@ -66,16 +69,17 @@ export default function ResponsiveDrawer(props: Props) {
     </div>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container = window !== undefined ?
+  () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{display: 'flex'}}>
       <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
+          width: {sm: `calc(100% - ${drawerWidth}px)`},
+          ml: {sm: `${drawerWidth}px`},
         }}
       >
         <Toolbar>
@@ -84,19 +88,18 @@ export default function ResponsiveDrawer(props: Props) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{mr: 2, display: {sm: 'none'}}}
           >
             <MenuIcon />
           </IconButton>
-            <Banner/>
+          <Banner/>
         </Toolbar>
       </AppBar>
       <Box
         component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        sx={{width: {sm: drawerWidth}, flexShrink: {sm: 0}}}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
           variant="temporary"
@@ -106,8 +109,8 @@ export default function ResponsiveDrawer(props: Props) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            'display': {xs: 'block', sm: 'none'},
+            '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
           }}
         >
           {drawer}
@@ -115,15 +118,15 @@ export default function ResponsiveDrawer(props: Props) {
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            'display': {xs: 'none', sm: 'block'},
+            '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
           }}
           open
         >
           {drawer}
         </Drawer>
       </Box>
-     
+
     </Box>
   );
 }

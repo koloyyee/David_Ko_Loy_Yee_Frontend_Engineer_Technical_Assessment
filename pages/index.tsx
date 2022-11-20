@@ -10,15 +10,25 @@ import Drawer from '../components/ResponsiveDrawer';
 import {DoctorInterface} from '../interfaces/doctor.interface';
 import styles from '../styles/Home.module.css';
 
-const Home:NextPage<{doctors: DoctorInterface[]}>= ({doctors}:{doctors: DoctorInterface[]}) => {
+const Home:NextPage<{doctors: DoctorInterface[]}> = (
+    {doctors}:{doctors: DoctorInterface[]}) => {
   const [query, setQuery] = useState('');
   const [filteredDoctors, setFilteredDoctors] = useState(doctors);
 
-
-  function handleChange(doctors:  DoctorInterface[], query:string) {
-    let filtered = query ===''? doctors : doctors.filter((doctor)=>{
-      return (doctor.address.district.toLowerCase().includes(query.trim().toLowerCase()) ||
-      doctor.name.toLowerCase().includes(query.trim().toLowerCase()) );
+  /**
+   *  Handle the input changes and filter the doctors by search term
+   * @param {DoctorInterface[]} doctors - doctors from getStaticProps
+   * @param {string} query - search term
+   */
+  function handleChange(doctors: DoctorInterface[], query:string) {
+    const filtered = query ===''? doctors : doctors.filter((doctor)=>{
+      return (
+        doctor.address.district
+            .toLowerCase()
+            .includes(query.trim().toLowerCase()) ||
+      doctor.name
+          .toLowerCase()
+          .includes(query.trim().toLowerCase()) );
     });
     setQuery(query);
     setFilteredDoctors(filtered);
@@ -34,18 +44,21 @@ const Home:NextPage<{doctors: DoctorInterface[]}>= ({doctors}:{doctors: DoctorIn
 
       <Banner/>
       <div className={styles.container}>
-      <Drawer/>
-      <main className={styles.main}>
-      <FilterInput label={'Search by Name or District'}list={doctors} query={query} handleChange={handleChange}/>
-        <Grid container spacing={2}>
-          
-        {filteredDoctors.map( (doctor, idx)=>(
-            <DocListingCard key={idx} doctor={doctor} isListing={true} />
-        ))}
-        </Grid>
-      </main>
+        <Drawer/>
+        <main className={styles.main}>
+          <FilterInput
+            label={'Search by Name or District'}
+            list={doctors} query={query}
+            handleChange={handleChange}/>
+          <Grid container spacing={2}>
+
+            {filteredDoctors.map( (doctor, idx)=>(
+              <DocListingCard key={idx} doctor={doctor} isListing={true} />
+            ))}
+          </Grid>
+        </main>
       </div>
-          <Footer />
+      <Footer />
 
     </div>
   );
@@ -53,19 +66,18 @@ const Home:NextPage<{doctors: DoctorInterface[]}>= ({doctors}:{doctors: DoctorIn
 
 export default Home;
 
-export const getStaticProps: GetStaticProps = async()=>{
-
-    const data= await fetch(`${process.env.URL}/doctor`,{
-      method: 'GET',
-      headers:{
-        'x-api-key': process.env.API_KEY!
-      }
-    });
-    const results: DoctorInterface[] = await data.json();
+export const getStaticProps: GetStaticProps = async ()=>{
+  const data= await fetch(`${process.env.URL}/doctor`, {
+    method: 'GET',
+    headers: {
+      'x-api-key': process.env.API_KEY!,
+    },
+  });
+  const results: DoctorInterface[] = await data.json();
 
   return {
-    props:{
-      doctors: results
-    }
+    props: {
+      doctors: results,
+    },
   };
 };
