@@ -1,4 +1,4 @@
-import {Alert, AlertColor, AlertTitle, Box, Button, Dialog, FormControl, Stack, Typography} from '@mui/material';
+import {Alert, AlertColor, AlertTitle, Button, Card, Dialog, FormControl, Stack, Typography} from '@mui/material';
 import TextField from '@mui/material/TextField';
 import {LocalizationProvider} from '@mui/x-date-pickers';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
@@ -120,15 +120,13 @@ function disablePicker(dateTime: dayjs.Dayjs | null){
 }
 
   return (
-    <Box 
+    <Card 
     component='div'
     sx={{ 
       minHeight: 400,
       maxHeight: 500,
       margin: 3,
       padding: 5,
-      boxShadow: '0 1px 2px',
-      borderRadius: 1.2
       }}>
 
   
@@ -199,7 +197,7 @@ function disablePicker(dateTime: dayjs.Dayjs | null){
       </Dialog>
     </FormControl>
     
-    </Box>
+    </Card>
   );
 };
 
