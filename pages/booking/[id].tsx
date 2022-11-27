@@ -4,6 +4,7 @@ import {
   AlertColor,
   AlertTitle, Button, Dialog, Typography
 } from '@mui/material';
+import {GetServerSideProps} from 'next';
 import {useRouter} from 'next/router';
 import {useState} from 'react';
 import BookingCard from '../../components/BookingCard';
@@ -13,15 +14,12 @@ import {BookingInterface, StatusEnum} from '../../interfaces/booking.interface';
 import {DoctorInterface} from '../../interfaces/doctor.interface';
 import styles from '../../styles/Booking.module.css';
 
-const BookingByID = ({booking, doctors}:{booking:BookingInterface,
-    doctors: DoctorInterface[]}) => {
+const BookingByID = ({booking, doctor}:
+  {booking:BookingInterface, doctor: DoctorInterface}) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [dialogStatus, setDialogStatus] = useState<AlertColor>('success');
   const router = useRouter();
 
-  const doctor = doctors.filter( (doctor)=>{
-    return doctor.id == booking.doctorId;
-  })[0];
   async function cancelBooking() {
     const updateBooking = {
       ...booking,
@@ -107,4 +105,30 @@ const BookingByID = ({booking, doctors}:{booking:BookingInterface,
 
 export default BookingByID;
 
+export const getServerSideProps: GetServerSideProps = async ({params})=>{
+  const data = await fetch(`${process.env.URL}/booking/${params!.id}`, {
+    method: 'GET',
+    headers: {
+      'x-api-key': process.env.API_KEY!,
+    },
+  });
 
+  const result: BookingInterface = await data.json();
+
+  const docData = await fetch(
+      `${process.env.URL}/doctor/${result.doctorId}`, {
+        method: 'GET',
+        headers: {
+          'x-api-key': process.env.API_KEY!,
+        },
+      });
+
+  const doc: DoctorInterface = await docData.json();
+
+  return {
+    props: {
+      booking: result,
+      doctor: doc,
+    },
+  };
+};
