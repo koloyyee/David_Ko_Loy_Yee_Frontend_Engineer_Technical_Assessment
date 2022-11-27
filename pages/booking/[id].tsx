@@ -10,13 +10,14 @@ import {useRouter} from 'next/router';
 import {useState} from 'react';
 import BookingCard from '../../components/BookingCard';
 import Footer from '../../components/Footer';
+import NotFound from '../../components/NotFound';
 import ResponsiveDrawer from '../../components/ResponsiveDrawer';
 import {BookingInterface, StatusEnum} from '../../interfaces/booking.interface';
 import {DoctorInterface} from '../../interfaces/doctor.interface';
 import styles from '../../styles/Booking.module.css';
 
-const BookingByID = ({booking, doctor}:
-  {booking:BookingInterface, doctor: DoctorInterface}) => {
+const BookingByID = ({booking, doctor, message}:
+  {booking:BookingInterface, doctor: DoctorInterface, message?: string}) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [dialogStatus, setDialogStatus] = useState<AlertColor>('success');
   const router = useRouter();
@@ -53,54 +54,57 @@ const BookingByID = ({booking, doctor}:
   }
   return (
     <>
-
       <ResponsiveDrawer/>
       <section className={styles.bookingSection}>
-        <div
-          className={styles.welcome}
-        >
+        {message?
+      <NotFound message={message}/>:
+        <>
+          <div
+            className={styles.welcome}
+          >
 
-          <Typography sx={{fontSize: 18}} color="text.secondary" gutterBottom>
+            <Typography sx={{fontSize: 18}} color="text.secondary" gutterBottom>
 
-          </Typography>
-          <Typography variant="h5" component="div">
+            </Typography>
+            <Typography variant="h5" component="div">
               Hi!
-            <p> {booking.name}</p>
-          </Typography>
-          <Typography variant="body2" component="div">
-            <p> Thank you for booking with us</p>
-            <p> You will find the booking details here.</p>
-          </Typography>
-          <Button variant='outlined'
-            className={styles.backButton}
-            onClick={()=>router.back()}> Back </Button>
-          <Button variant='contained'
-            color='error'
-            className={styles.backButton}
-            onClick={cancelBooking}> CANCEL BOOKING </Button>
-        </div>
+              <p> {booking.name}</p>
+            </Typography>
+            <Typography variant="body2" component="div">
+              <p> Thank you for booking with us</p>
+              <p> You will find the booking details here.</p>
+            </Typography>
+            <Button variant='outlined'
+              className={styles.backButton}
+              onClick={()=>router.back()}> Back </Button>
+            <Button variant='contained'
+              color='error'
+              className={styles.backButton}
+              onClick={cancelBooking}> CANCEL BOOKING </Button>
+          </div>
 
 
-        <BookingCard
-          time={booking.start}
-          doctor={doctor}
-          status={booking.status} />
-        <Dialog open={openDialog} onClose={()=>{
-          setOpenDialog(false);
-        }}>
-          <Alert severity={dialogStatus}>
-            <AlertTitle>{dialogStatus.toUpperCase()}!</AlertTitle>
-            {
+          <BookingCard
+            time={booking.start}
+            doctor={doctor}
+            status={booking.status} />
+          <Dialog open={openDialog} onClose={()=>{
+            setOpenDialog(false);
+          }}>
+            <Alert severity={dialogStatus}>
+              <AlertTitle>{dialogStatus.toUpperCase()}!</AlertTitle>
+              {
             dialogStatus.toString() === 'success'?
             'Booking Cancelled, Back to Home!.' :
             'Booking Failed to Cancel'
-            }
+              }
 
-          </Alert>
-        </Dialog>
+            </Alert>
+          </Dialog>
+        </>
+        }
 
       </section>
-
 
       <Footer />
     </>
@@ -115,24 +119,33 @@ export const getServerSideProps: GetServerSideProps = async ({params})=>{
     headers: {
       'x-api-key': process.env.API_KEY!,
     },
-  });
 
+  });
   const result: BookingInterface = await data.json();
 
-  const docData = await fetch(
-      `${process.env.URL}/doctor/${result.doctorId}`, {
-        method: 'GET',
-        headers: {
-          'x-api-key': process.env.API_KEY!,
-        },
-      });
+  if (result) {
+    const docData = await fetch(
+        `${process.env.URL}/doctor/${result.doctorId}`, {
+          method: 'GET',
+          headers: {
+            'x-api-key': process.env.API_KEY!,
+          },
+        });
 
-  const doc: DoctorInterface = await docData.json();
+    const doc: DoctorInterface = await docData.json();
+
+
+    return {
+      props: {
+        booking: result,
+        doctor: doc,
+      },
+    };
+  }
 
   return {
     props: {
-      booking: result,
-      doctor: doc,
+      message: 'Booking Not Found.',
     },
   };
 };
