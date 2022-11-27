@@ -1,9 +1,11 @@
+/* eslint-disable valid-jsdoc */
 import {NextApiRequest, NextApiResponse} from 'next/types';
 
 /**
- * @function handler - create a new booking.
- * @param {NextApiRequest} req
- * @param { NextApiResponse} res
+ * handler - create a new booking.
+ * @param {NextApiRequest} req - request from frontend
+ * @param { NextApiResponse} res - response to frontend
+ * @return
  */
 export default async function handler(
     req: NextApiRequest,

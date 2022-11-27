@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 import {red} from '@mui/material/colors';
 import {createTheme} from '@mui/material/styles';
 import {Roboto} from '@next/font/google';

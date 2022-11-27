@@ -1,3 +1,5 @@
+/* eslint-disable require-jsdoc */
+/* eslint-disable max-len */
 import createCache from '@emotion/cache';
 
 const isBrowser = typeof document !== 'undefined';
@@ -10,10 +12,10 @@ export default function createEmotionCache() {
 
   if (isBrowser) {
     const emotionInsertionPoint = document.querySelector<HTMLMetaElement>(
-      'meta[name="emotion-insertion-point"]',
+        'meta[name="emotion-insertion-point"]',
     );
     insertionPoint = emotionInsertionPoint ?? undefined;
   }
 
-  return createCache({ key: 'mui-style', insertionPoint });
+  return createCache({key: 'mui-style', insertionPoint});
 }

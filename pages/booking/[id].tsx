@@ -2,6 +2,7 @@
 import {
   Alert,
   AlertColor,
+  // eslint-disable-next-line comma-dangle
   AlertTitle, Button, Dialog, Typography
 } from '@mui/material';
 import {GetServerSideProps} from 'next';

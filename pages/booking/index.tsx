@@ -1,29 +1,18 @@
 import {Button} from '@mui/material';
 import {useRouter} from 'next/router';
 import {GetStaticProps} from 'next/types';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import Footer from '../../components/Footer';
 import ResponsiveDrawer from '../../components/ResponsiveDrawer';
-import {BookingInterface, StatusEnum} from '../../interfaces/booking.interface';
 import styles from '../../styles/Booking.module.css';
 import homeStyles from '../../styles/Home.module.css';
-
-const defaultState:BookingInterface = {
-  id: '',
-  name: '',
-  start: 0.0,
-  doctorId: '',
-  date: '',
-  status: StatusEnum.cancel,
-};
 
 
 const Bookings = () => {
   const router = useRouter();
   const [query, setQuery] = useState('');
-  const [booking, setBooking] = useState<BookingInterface>(defaultState);
 
-  const searchBooking = async (e:React.FormEvent)=>{
+  const searchBooking = async (e: React.FormEvent)=>{
     e.preventDefault();
 
     router.replace(`/booking/${query}`);

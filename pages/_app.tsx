@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable require-jsdoc */
 import {CacheProvider, EmotionCache} from '@emotion/react';
 import CssBaseline from '@mui/material/CssBaseline';
 import {ThemeProvider} from '@mui/material/styles';
@@ -15,7 +17,7 @@ interface MyAppProps extends AppProps {
 }
 
 export default function MyApp(props: MyAppProps) {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+  const {Component, emotionCache = clientSideEmotionCache, pageProps} = props;
   return (
     <CacheProvider value={emotionCache}>
       <Head>
