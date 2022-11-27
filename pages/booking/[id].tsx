@@ -41,6 +41,9 @@ const BookingByID = ({booking, doctor}:
         setOpenDialog(true);
         return;
       }
+
+      setDialogStatus('success');
+      setOpenDialog(true);
       setTimeout(()=>{ // back to homepage if booking cancelled
         router.replace('/');
       }, 5000);
