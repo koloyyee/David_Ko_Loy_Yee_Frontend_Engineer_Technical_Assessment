@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {DoctorInterface} from './doctor.interface';
 
 export interface BookingInterface {

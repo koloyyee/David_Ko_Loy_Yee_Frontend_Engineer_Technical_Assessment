@@ -22,6 +22,7 @@ function DocListingCard( {doctor, isListing}:DoctorListingCardInterface) {
       minHeight: 400,
       maxHeight: 500,
       margin: 3,
+      gridRow: 2,
     }}>
       <CardHeader
         avatar={

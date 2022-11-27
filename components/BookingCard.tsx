@@ -1,17 +1,21 @@
 import {Avatar, Card, CardContent, CardHeader} from '@mui/material';
 import {red} from '@mui/material/colors';
+import {BookingInterface} from '../interfaces/booking.interface';
 import {DoctorInterface} from '../interfaces/doctor.interface';
 import styles from '../styles/Card.module.css';
 import TimeSlot from './TimeSlot';
 
-const BookingCard = ({time, doctor}:
-  {time: number, doctor: DoctorInterface}) => {
+const BookingCard = ({time, doctor, status}:
+  {time: number,
+    doctor: DoctorInterface,
+    status: BookingInterface['status']}) => {
   return (
     <Card sx={{
 
       minHeight: 400,
       maxHeight: 500,
-      margin: 3,
+      maxWidth: 500,
+      margin: 2,
     }}>
       <CardHeader
         avatar={
@@ -31,6 +35,10 @@ const BookingCard = ({time, doctor}:
           <span className={styles.subheading}>
             Address:</span> {doctor.address.line_1}
           <br/> {doctor.address.line_2}
+        </p>
+        <p>
+          <span className={styles.subheading}>
+            Status:</span> {status}
         </p>
         <TimeSlot start={time}/>
       </CardContent>

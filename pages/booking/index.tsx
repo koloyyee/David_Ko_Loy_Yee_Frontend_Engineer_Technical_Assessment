@@ -14,45 +14,43 @@ const defaultState:BookingInterface = {
   start: 0.0,
   doctorId: '',
   date: '',
-  status: StatusEnum.cancel
+  status: StatusEnum.cancel,
 };
 
 
 const Bookings = () => {
-  
   const router = useRouter();
   const [query, setQuery] = useState('');
-  const[booking, setBooking] = useState<BookingInterface>(defaultState);
- 
+  const [booking, setBooking] = useState<BookingInterface>(defaultState);
+
   const searchBooking = async (e:React.FormEvent)=>{
     e.preventDefault();
-    
+
     router.replace(`/booking/${query}`);
-  
   };
 
   return (
     <>
 
-    <div className={homeStyles.container}>
-    <ResponsiveDrawer/>
-    <section className={styles.section}>
-    <form className={styles.bookingForm} >
-      <label  htmlFor="bookingId">
+      <div className={homeStyles.container}>
+        <ResponsiveDrawer/>
+        <section className={styles.section}>
+          <form className={styles.bookingForm} >
+            <label htmlFor="bookingId">
         Input your booking id:
-      </label>
-          <input
-          className={styles.input}
-          type="text"
-          name="bookingId"
-          id=""
-          onChange={(e)=>setQuery(e.target.value.trim())}
-          />
-      <Button variant='contained' onClick={searchBooking}>Find</Button>
-    </form>
-    </section>
-    </div>
-    <Footer />
+            </label>
+            <input
+              className={styles.input}
+              type="text"
+              name="bookingId"
+              id=""
+              onChange={(e)=>setQuery(e.target.value.trim())}
+            />
+            <Button variant='contained' onClick={searchBooking}>Find</Button>
+          </form>
+        </section>
+      </div>
+      <Footer />
     </>
   );
 };
@@ -60,17 +58,17 @@ const Bookings = () => {
 export default Bookings;
 
 export const getStaticProps: GetStaticProps = async ()=>{
-    const bookingData = await fetch(`${process.env.URL}/booking`,{
-        method: 'GET',
-        headers:{
-          'x-api-key': process.env.API_KEY!
-        }
-      });
-    const bookings = await bookingData.json();
+  const bookingData = await fetch(`${process.env.URL}/booking`, {
+    method: 'GET',
+    headers: {
+      'x-api-key': process.env.API_KEY!,
+    },
+  });
+  const bookings = await bookingData.json();
 
-    return {
-        props: {
-            bookings: bookings
-        }
-    };
+  return {
+    props: {
+      bookings: bookings,
+    },
+  };
 };

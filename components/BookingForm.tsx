@@ -128,6 +128,7 @@ end: string}) => {
         maxHeight: 500,
         margin: 3,
         padding: 5,
+        gridRow: 2,
       }}>
 
 
@@ -137,7 +138,6 @@ end: string}) => {
         }}>
         <Typography variant={'h5'}>Found The Right Doctor?</Typography>
         <TextField
-          // className={styles.input}
           autoFocus={true}
           type="text"
           name="name"
