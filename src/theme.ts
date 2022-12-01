@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 import {red} from '@mui/material/colors';
 import {createTheme} from '@mui/material/styles';
 import {Roboto} from '@next/font/google';
@@ -13,10 +14,10 @@ export const roboto = Roboto({
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#556cd6',
+      main: '#191357',
     },
     secondary: {
-      main: '#19857b',
+      main: 'rgb(255, 0, 104)',
     },
     error: {
       main: red.A400,

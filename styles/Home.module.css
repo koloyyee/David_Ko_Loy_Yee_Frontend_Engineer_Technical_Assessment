@@ -1,15 +1,12 @@
 .container {
-  padding: 0 2rem;
+  display: flex;
 }
 
 .main {
   min-height: 100vh;
-  padding: 4rem 0;
-  flex: 1;
   display: flex;
+  margin-left: 2em;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .footer {
@@ -108,10 +105,16 @@
   margin-left: 0.5rem;
 }
 
-@media (max-width: 600px) {
+@media (min-width: 600px) {
+  .container {
+    padding-top: 1em
+  }
   .grid {
     width: 100%;
     flex-direction: column;
+  }
+  .main{
+  margin-left: 10em;
   }
 }
 
@@ -126,4 +129,5 @@
   .logo img {
     filter: invert(1);
   }
+
 }

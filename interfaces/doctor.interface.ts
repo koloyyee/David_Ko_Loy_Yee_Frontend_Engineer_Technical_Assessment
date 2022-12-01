@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export interface DoctorInterface {
     id : string
     address : AddressInterface
@@ -7,7 +8,7 @@ export interface DoctorInterface {
 }
 
 export interface OpeningHoursInterface {
-    day: DayEnum 
+    day: DayEnum
     end: string
     isClose: boolean
     start: string
@@ -19,11 +20,17 @@ export interface AddressInterface {
 }
 
 export enum DayEnum {
-    MON ='MON', 
-    TUE = 'TUE', 
-    WED = 'WED', 
-    THU = 'THU', 
-    FRI = 'FRI', 
-    SAT = 'SAT', 
+    MON ='MON',
+    TUE = 'TUE',
+    WED = 'WED',
+    THU = 'THU',
+    FRI = 'FRI',
+    SAT = 'SAT',
     SUN = 'SUN',
 }
+
+export interface DoctorListingCardInterface{
+    doctor: DoctorInterface,
+    isListing :boolean
+  }
+

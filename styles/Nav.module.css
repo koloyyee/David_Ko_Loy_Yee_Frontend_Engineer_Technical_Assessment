@@ -1,0 +1,39 @@
+.nav{
+    position: fixed;
+    bottom:0;
+    background-color: rgba(255,255,255, 0.6);
+    width: 100%;
+}
+
+.nav ul {
+    display: flex;
+    gap: 10px;
+}
+
+.nav a {
+    /* list-style: none; */
+    text-decoration:  none;
+    color: black;
+}
+
+.nav a:hover, 
+.nav a:focus {
+    color: #e53935
+}
+
+@media (min-width: 800px) {
+    .nav{
+        display: block;
+        position: sticky;
+        top: 0;
+        left: 0;
+        padding-top:30px;
+        /* margin-right: 15px; */
+        width: 20%;
+        height: 100vh;
+        box-shadow: 3px 0 3px -2px #888;
+    }
+    .nav ul {
+        flex-direction: column;
+    }
+}
